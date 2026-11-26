@@ -114,9 +114,45 @@ class Lesson(models.Model):
         return self.title
 
 
-#-----30.2------
+# 32.1 добавляем модель подписки пользователя на обновления курса
+class Subscription(models.Model):
+    # 32.1 связываем подписку с пользователем через внешний ключ
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='subscriptions',
+        verbose_name='Пользователь',
+        help_text='Выберите пользователя'
+    )
+
+    # 32.1 связываем подписку с курсом через внешний ключ
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name='subscriptions',
+        verbose_name='Курс',
+        help_text='Выберите курс для подписки'
+    )
+
+    class Meta:
+        # 32.1 задаем человекочитаемые названия модели подписки для административной панели
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+        # 32.1 гарантируем уникальность пары ID пользователя и ID курса на уровне базы данных
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'course'], name='unique_user_course_subscription')
+        ]
+
+    def __str__(self):
+        # 32.1 возвращаем информативное строковое представление подписки
+        return f'{self.user} — {self.course}'
 
 
+#-----32.1--------
+
+
+# # 31 импортируем настройки проекта для ссылки на кастомную модель пользователя AUTH_USER_MODEL
+# from django.conf import settings
 # from django.db import models
 #
 #
@@ -143,6 +179,17 @@ class Lesson(models.Model):
 #         null=True,
 #         verbose_name='Описание курса',
 #         help_text='Укажите описание курса'
+#     )
+#
+#     # 31 добавляем связь с владельцем курса (пользователем, создавшим курс)
+#     owner = models.ForeignKey(
+#         settings.AUTH_USER_MODEL,
+#         on_delete=models.SET_NULL,
+#         blank=True,
+#         null=True,
+#         related_name='courses',
+#         verbose_name='Владелец',
+#         help_text='Укажите владельца курса'
 #     )
 #
 #     class Meta:
@@ -197,6 +244,17 @@ class Lesson(models.Model):
 #         null=True,
 #         verbose_name='Курс',
 #         help_text='Выберите курс, к которому относится урок'
+#     )
+#
+#     # 31 добавляем связь с владельцем урока (пользователем, создавшим урок)
+#     owner = models.ForeignKey(
+#         settings.AUTH_USER_MODEL,
+#         on_delete=models.SET_NULL,
+#         blank=True,
+#         null=True,
+#         related_name='lessons',
+#         verbose_name='Владелец',
+#         help_text='Укажите владельца урока'
 #     )
 #
 #     class Meta:
