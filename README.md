@@ -276,3 +276,15 @@ mkdir users\fixtures
 
 #### 31 выгружаем группы пользователей в fixtures
 poetry run python -Xutf8 manage.py dumpdata auth.group --indent 2 -o users/fixtures/groups.json
+
+#### 32.1 устанавливаем библиотеку coverage, через Poetry
+poetry add --group dev coverage
+
+#### 32.1 Запускаем все тесты с подсчетом покрытия
+poetry run coverage run --source='.' manage.py test
+
+#### 32.1 выводим таблицу покрытия в терминал
+poetry run coverage report
+
+#### 32.1 Сохраните результат проверки покрытия в HTML-папку htmlcov/ (и/или в файл coverage_report.txt для сдачи ДЗ):bash
+poetry run coverage html
