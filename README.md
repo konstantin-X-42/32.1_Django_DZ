@@ -210,7 +210,7 @@ REST API для платформы онлайн-обучения на базе *
 │   ├── models.py                   # 30.2 Модели User (вход по email, phone, city, avatar) и Payment (история оплат)
 │   ├── permissions.py              # 32.1 Кастомные классы прав доступа: IsModer (с has_object_permission), IsOwner и IsCurrentUser
 │   ├── serializers.py              # 31 Сериализаторы UserRegisterSerializer, UserSerializer, UserPublicSerializer и PaymentSerializer
-│   ├── tests.py                    # 30.1 Модуль для написания автотестов пользователей
+│   ├── tests.py                    # 32.1 Автотесты APITestCase (AuthTestCase, UserProfileTestCase, PaymentTestCase) для всех эндпоинтов users
 │   ├── urls.py                     # 31 Маршруты JWT-токенов (login, token/refresh), полного CRUD пользователей и списка платежей
 │   └── views.py                    # 31 Контроллеры полного CRUD пользователей (с разделением прав/сериализаторов профиля) и платежей
 │
