@@ -148,22 +148,6 @@ class LessonTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Lesson.objects.count(), 0)
 
-    # def test_lesson_delete_permissions(self):
-    #     # 32.1 проверяем запрет удаления урока для модератора и постороннего пользователя
-    #     url = reverse('materials:lesson-delete', args=(self.lesson.pk,))
-    #
-    #     self.client.force_authenticate(user=self.moder)
-    #     self.assertEqual(self.client.delete(url).status_code, status.HTTP_403_FORBIDDEN)
-    #
-    #     self.client.force_authenticate(user=self.other_user)
-    #     self.assertEqual(self.client.delete(url).status_code, status.HTTP_403_FORBIDDEN)
-    #
-    #     # 32.1 проверяем успешное удаление урока его владельцем
-    #     self.client.force_authenticate(user=self.owner)
-    #     response_owner = self.client.delete(url)
-    #     self.assertEqual(response_owner.status_code, status.HTTP_204_NO_CONTENT)
-    #     self.assertEqual(Lesson.objects.count(), 0)
-
 
 # 32.1 набор тестов для проверки функционала подписки и отписки от обновлений курса
 class SubscriptionTestCase(APITestCase):
