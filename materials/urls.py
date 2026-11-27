@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from materials.apps import MaterialsConfig
+# 32.1 импортируем контроллер управления подпиской на курс SubscriptionAPIView
 from materials.views import (
     CourseViewSet,
     LessonCreateAPIView,
@@ -8,6 +9,7 @@ from materials.views import (
     LessonRetrieveAPIView,
     LessonUpdateAPIView,
     LessonDestroyAPIView,
+    SubscriptionAPIView,
 )
 
 # 30.1 задаем пространство имен приложения согласно стандартам Django
@@ -29,4 +31,7 @@ urlpatterns = [
     path('lessons/update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson-update'),
     # 30.1 маршрут для удаления урока по его ID (DELETE)
     path('lessons/delete/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson-delete'),
+
+    # 32.1 маршрут для добавления или удаления подписки пользователя на обновления курса (POST)
+    path('courses/subscribe/', SubscriptionAPIView.as_view(), name='course-subscribe'),
 ] + router.urls
